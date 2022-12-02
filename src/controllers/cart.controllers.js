@@ -1,8 +1,6 @@
 const { CartServices } = require("../services");
 
 const createCartByUser = async (req, res, next) => {
-    console.log(req.body);
-    console.log(req.params);
     try {
         const { id } = req.params;
         const newCart = req.body;

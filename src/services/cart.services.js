@@ -2,7 +2,6 @@ const { Carts, Users } = require("../models");
 
 class CartServices {
     static async add(newCart, id) {
-        console.log(newCart);
         try {
             await Carts.create({
                 userId: id,
@@ -20,7 +19,6 @@ class CartServices {
         } catch (error) {
             throw error;
         }
-
     }
 };
 
