@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const { createUser, getAllProductsInCartByUser, getAllOrdersByUser } = require("../controllers");
+const authenticate = require("../middlewares/auth.middlewares");
 
 const router = Router();
 
@@ -34,6 +35,8 @@ const router = Router();
  *
  * /api/v1/users/{id}:
  *   get:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Get all products in the user's cart
  *     tags: [Users]
  *     parameters:
@@ -66,6 +69,8 @@ const router = Router();
  *                   items: {}
  * /api/v1/users/orders/{id}:
  *   get:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Get all orders in the user's cart
  *     tags: [Users]
  *     parameters:
@@ -99,7 +104,7 @@ const router = Router();
  */
 
 router.post("/users", createUser);
-router.get("/users/:id", getAllProductsInCartByUser);
-router.get("/users/orders/:id", getAllOrdersByUser);
+router.get("/users/:id", authenticate, getAllProductsInCartByUser);
+router.get("/users/orders/:id", authenticate, getAllOrdersByUser);
 
 module.exports = router;

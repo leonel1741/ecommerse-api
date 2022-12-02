@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const { addProductInCart, purchaseProductsInCart } = require("../controllers");
+const authenticate = require("../middlewares/auth.middlewares");
 
 const router = Router();
 
@@ -7,6 +8,8 @@ const router = Router();
  * @openapi
  * /api/v1/cart/{id}:
  *   post:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Add a new product into the cart
  *     tags: [Cart]
  *     parameters:
@@ -42,6 +45,8 @@ const router = Router();
  *
  * /api/v1/cart/purchase/{id}:
  *   put:
+ *     security:
+ *       - bearerAuth: []
  *     summary: Buy the products in the cart
  *     tags: [Cart]
  *     parameters:
@@ -67,7 +72,7 @@ const router = Router();
  *                   type: array
  */
 
-router.post("/cart/:id", addProductInCart);
-router.put("/cart/purchase/:id", purchaseProductsInCart);
+router.post("/cart/:id", authenticate, addProductInCart);
+router.put("/cart/purchase/:id", authenticate, purchaseProductsInCart);
 
 module.exports = router;
